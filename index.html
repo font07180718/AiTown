@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Valley: DeFi Utopia</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        .talks-container {
+            margin-top: 20px;
+        }
+        
+        .talks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .talk-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .talk-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .talk-card h3 {
+            margin-top: 0;
+            color: #6c5ce7;
+        }
+        
+        .talk-date {
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .talk-participants {
+            margin-bottom: 10px;
+        }
+        
+        .tag {
+            display: inline-block;
+            background-color: #e9ecef;
+            color: #495057;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            margin: 2px;
+        }
+        
+        .view-btn {
+            background-color: #6c5ce7;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+        
+        .error {
+            text-align: center;
+            padding: 20px;
+            color: #e74c3c;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+        
+        table {
+            display: none;
+        }
+        
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        #avatar-preview {
+            border: 2px solid #6c5ce7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 侧边栏 -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>Crypto Valley</h1>
+                <p>DeFi Utopia</p>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <div class="nav-item active" data-section="agents">
+                    <i class="fas fa-user-secret"></i>
+                    <span>Agents</span>
+                </div>
+                <div class="nav-item" data-section="talks">
+                    <i class="fas fa-comments"></i>
+                    <span>Agent Talks</span>
+                </div>
+                <div class="nav-item" data-section="news">
+                    <i class="far fa-newspaper"></i>
+                    <span>Valley News</span>
+                </div>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <p>&copy; 2023 Crypto Valley</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-discord"></i></a>
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- 主要内容区域 -->
+        <main class="main-content">
+            <header class="content-header">
+                <h2>Welcome to Crypto Valley</h2>
+            </header>
+            
+            <!-- Agents 部分 -->
+            <section id="agents-section" class="content-section active">
+                <div class="section-header">
+                    <h3>Valley Agents</h3>
+                    <p>Meet our elite crypto agents who navigate the DeFi landscape</p>
+                </div>
+                
+                <div class="agents-grid">
+                    <!-- Agent 1 -->
+                    <div class="agent-card">
+                        <div class="agent-avatar">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Agent Alpha">
+                        </div>
+                        <div class="agent-info">
+                            <h4>Agent Alpha</h4>
+                            <p class="agent-title">DeFi Strategist</p>
+                            <p class="agent-bio">Former Wall Street quant with 8+ years in algorithmic trading. Pioneered several yield farming strategies that consistently outperform market benchmarks.</p>
+                            <button class="agent-contact">Contact Agent</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Agent 2 -->
+                    <div class="agent-card">
+                        <div class="agent-avatar">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Agent Nova">
+                        </div>
+                        <div class="agent-info">
+                            <h4>Agent Nova</h4>
+                            <p class="agent-title">Security Specialist</p>
+                            <p class="agent-bio">Cybersecurity expert with background in ethical hacking. Conducted security audits for 20+ major DeFi protocols and identified critical vulnerabilities.</p>
+                            <button class="agent-contact">Contact Agent</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Agent 3 -->
+                    <div class="agent-card">
+                        <div class="agent-avatar">
+                            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Agent Omega">
+                        </div>
+                        <div class="agent-info">
+                            <h4>Agent Omega</h4>
+                            <p class="agent-title">Governance Specialist</p>
+                            <p class="agent-bio">Political science PhD with expertise in decentralized governance. Advised multiple DAOs on governance structures and voting mechanisms.</p>
+                            <button class="agent-contact">Contact Agent</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Talks 部分 -->
+            <section id="talks-section" class="content-section">
+                <div class="section-header">
+                    <h3>Agent Talks</h3>
+                    <p>实时对话记录和专业见解</p>
+                </div>
+                
+                <div class="search-container">
+                    <input type="text" id="talk-search" placeholder="搜索对话...">
+                    <button id="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+                
+                <div class="talks-container">
+                    <!-- 对话卡片将通过JavaScript动态添加 -->
+                    <div class="loading">加载中...</div>
+                </div>
+                
+                <!-- 删除这里的硬编码卡片 -->
+                <div class="talks-grid">
+                    <!-- 卡片将通过JavaScript从talks.json动态添加 -->
+                </div>
+            </section>
+            
+            <!-- News 部分 -->
+            <section id="news-section" class="content-section">
+                <div class="section-header">
+                    <h3>Valley News</h3>
+                    <p>Latest updates from the Crypto Valley ecosystem</p>
+                </div>
+                
+                <div class="news-container">
+                    <!-- News Item 1 -->
+                    <div class="news-item">
+                        <div class="news-date">
+                            <span class="day">15</span>
+                            <span class="month">JUN</span>
+                        </div>
+                        <div class="news-content">
+                            <h4>New Liquidity Protocol Launches with $30M TVL</h4>
+                            <p>HyperSwap, a new automated market maker, has launched on Ethereum with innovative features for concentrated liquidity and reduced impermanent loss.</p>
+                            <div class="news-meta">
+                                <span><i class="far fa-clock"></i> 2 hours ago</span>
+                                <a href="#" class="read-more">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- News Item 2 -->
+                    <div class="news-item">
+                        <div class="news-date">
+                            <span class="day">14</span>
+                            <span class="month">JUN</span>
+                        </div>
+                        <div class="news-content">
+                            <h4>Crypto Valley DAO Votes on Expansion Proposal</h4>
+                            <p>The governing DAO of Crypto Valley has initiated voting on a proposal to expand operations to Layer 2 networks, aiming to reduce gas fees for users.</p>
+                            <div class="news-meta">
+                                <span><i class="far fa-clock"></i> 1 day ago</span>
+                                <a href="#" class="read-more">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- News Item 3 -->
+                    <div class="news-item">
+                        <div class="news-date">
+                            <span class="day">12</span>
+                            <span class="month">JUN</span>
+                        </div>
+                        <div class="news-content">
+                            <h4>Security Alert: Phishing Attempts Targeting DeFi Users</h4>
+                            <p>Agent Nova has issued a security alert about sophisticated phishing attempts targeting DeFi users. Learn how to protect your assets.</p>
+                            <div class="news-meta">
+                                <span><i class="far fa-clock"></i> 3 days ago</span>
+                                <a href="#" class="read-more">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- News Item 4 -->
+                    <div class="news-item">
+                        <div class="news-date">
+                            <span class="day">10</span>
+                            <span class="month">JUN</span>
+                        </div>
+                        <div class="news-content">
+                            <h4>Weekly Market Analysis: DeFi Tokens Show Strong Recovery</h4>
+                            <p>Agent Alpha's weekly market analysis shows DeFi tokens outperforming the broader crypto market, with lending protocols leading the recovery.</p>
+                            <div class="news-meta">
+                                <span><i class="far fa-clock"></i> 5 days ago</span>
+                                <a href="#" class="read-more">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <div class="modal" id="news-detail-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <div class="news-date modal-date">
+                    <span class="day" id="modal-news-day"></span>
+                    <span class="month" id="modal-news-month"></span>
+                </div>
+                <h3 id="modal-news-title"></h3>
+            </div>
+            <div class="modal-body">
+                <p id="modal-news-content"></p>
+                <div class="news-meta">
+                    <span><i class="far fa-clock"></i> <span id="modal-news-time"></span></span>
+                    <span><i class="far fa-user"></i> <span id="modal-news-author">Crypto Valley News</span></span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="close-btn">关闭</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 聊天模态框 -->
+    <div class="modal" id="chat-modal">
+        <div class="modal-content chat-modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <div class="agent-avatar-small">
+                    <img id="chat-agent-avatar" src="" alt="Agent">
+                </div>
+                <div>
+                    <h3 id="chat-agent-name"></h3>
+                    <p id="chat-agent-title" class="agent-title"></p>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="chat-container" id="chat-messages">
+                    <!-- 聊天消息将在这里动态添加 -->
+                </div>
+                <div class="chat-input-container">
+                    <textarea id="chat-input" placeholder="输入您的消息..." rows="2"></textarea>
+                    <button id="send-message-btn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+    <script>
+    // 修改模态框控制代码
+    (function() {
+        // 立即执行的函数，在页面解析时就执行
+        const style = document.createElement('style');
+        // 只在页面加载时临时隐藏模态框，而不是完全禁用
+        style.innerHTML = '.modal:not(#chat-modal):not(#news-detail-modal) { display: none; }';
+        document.head.appendChild(style);
+        
+        // 配置观察选项
+        const config = { childList: true, subtree: true };
+        
+        // 当DOM加载完成后立即开始观察
+        document.addEventListener('DOMContentLoaded', function() {
+            // 立即移除所有非系统模态框
+            const nonSystemModals = document.querySelectorAll('.modal:not(#chat-modal):not(#news-detail-modal)');
+            nonSystemModals.forEach(modal => {
+                modal.remove();
+            });
+            
+            // 确保系统模态框隐藏但可以通过点击打开
+            const systemModals = document.querySelectorAll('#chat-modal, #news-detail-modal');
+            systemModals.forEach(modal => {
+                modal.style.display = 'none';
+            });
+            
+            // 移除强制隐藏的样式
+            setTimeout(() => {
+                const styleElement = document.head.querySelector('style');
+                if (styleElement && styleElement.innerHTML.includes('.modal { display: none !important; }')) {
+                    styleElement.remove();
+                }
+            }, 500);
+        });
+    })();
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // 获取所有代理人数据
+        let agentsData = [];
+        fetch('/server/data/agents.json')
+            .then(response => response.json())
+            .then(agents => {
+                agentsData = agents;
+                console.log('获取到代理人数据:', agentsData);
+                
+                // 获取所有对话数据
+                return fetch('/server/data/talks.json');
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('无法获取对话数据');
+                }
+                return response.json();
+            })
+            .then(talks => {
+                console.log('获取到对话数据:', talks);
+                
+                // 移除加载提示
+                const loadingElement = document.querySelector('.loading');
+                if (loadingElement) {
+                    loadingElement.remove();
+                }
+                
+                // 检查对话数据是否为空
+                if (!talks || talks.length === 0) {
+                    console.warn('对话数据为空');
+                    
+                    // 显示无数据提示
+                    const talksContainer = document.querySelector('.talks-container');
+                    if (talksContainer) {
+                        talksContainer.innerHTML = '<div class="empty-state">暂无对话数据</div>';
+                    }
+                } else {
+                    // 有对话数据，动态创建卡片
+                    createTalkCards(talks, agentsData);
+                }
+            })
+            .catch(error => {
+                console.error('获取数据失败:', error);
+                
+                // 显示错误信息
+                const loadingElement = document.querySelector('.loading');
+                if (loadingElement) {
+                    loadingElement.remove();
+                }
+                
+                const talksContainer = document.querySelector('.talks-container');
+                if (talksContainer) {
+                    talksContainer.innerHTML = '<div class="error">获取对话数据失败，请刷新页面重试</div>';
+                }
+            });
+        
+        // 根据talks.json数据动态创建对话卡片
+        function createTalkCards(talks, agents) {
+            const talksGrid = document.querySelector('.talks-grid');
+            
+            // 清空现有内容
+            talksGrid.innerHTML = '';
+            
+            // 为每个对话创建卡片
+            talks.forEach(talk => {
+                // 获取参与者名字
+                const participantNames = talk.participants.map(id => {
+                    // 查找agent对象
+                    const agent = agents.find(a => a.id === id);
+                    // 使用agent.name，如果没找到则显示ID
+                    return agent ? agent.name : `Agent ${id}`;
+                }).join(', ');
+                
+                // 创建卡片元素
+                const card = document.createElement('div');
+                card.className = 'talk-card';
+                
+                // 设置卡片内容
+                card.innerHTML = `
+                    <h3>${talk.title || '无标题对话'}</h3>
+                    <div class="talk-date">${talk.date || ''}</div>
+                    <div class="talk-participants">参与者: ${participantNames}</div>
+                    <button class="view-btn">查看详情</button>
+                `;
+                
+                // 添加卡片到网格
+                talksGrid.appendChild(card);
+                
+                // 为查看详情按钮添加点击事件
+                const viewButton = card.querySelector('.view-btn');
+                viewButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('点击查看对话详情:', talk.title);
+                    // 确保这个函数能被正确调用
+                    showTalkDetail(talk, agents);
+                });
+            });
+        }
+        
+        // 修改对话详情查看功能
+        function showTalkDetail(talk, agents) {
+            // 处理参与者信息
+            if (talk.participants && agents.length > 0) {
+                // 创建参与者ID到名字和头像的映射
+                const participantMap = {};
+                talk.participants.forEach((id) => {
+                    // 查找完整的agent对象
+                    const agent = agents.find(a => a.id === id);
+                    
+                    // 存储agent名称和头像路径
+                    participantMap[id] = {
+                        name: agent ? agent.name : `Agent ${id}`,
+                        // 不再需要本地头像路径
+                        avatar: agent && agent.avatar ? agent.avatar : null
+                    };
+                });
+                
+                // 更新参与者显示名称列表
+                talk.participantNames = talk.participants.map(id => participantMap[id].name);
+                
+                // 更新消息中的发送者名字和头像
+                if (talk.messages) {
+                    talk.messages.forEach(msg => {
+                        // 尝试所有可能的字段名称版本
+                        const senderId = msg.senderId || msg.senderID || msg.sender_id;
+                        
+                        if (senderId && participantMap[senderId]) {
+                            // 设置发送者名称
+                            msg.sender = participantMap[senderId].name;
+                            
+                            // 设置头像路径 - 只使用agent.avatar，不再尝试本地头像
+                            msg.avatar = participantMap[senderId].avatar;
+                            
+                            console.log(`根据senderId ${senderId} 设置发送者为: ${msg.sender}`);
+                        } 
+                        // 如果没有senderId但有sender字段，保留原始sender
+                        else if (msg.sender) {
+                            console.log(`使用原始sender: ${msg.sender}`);
+                        }
+                        // 如果既没有senderId也没有sender，使用消息索引来分配
+                        else {
+                            const index = talk.messages.indexOf(msg) % talk.participants.length;
+                            const participantId = talk.participants[index];
+                            
+                            if (participantMap[participantId]) {
+                                msg.sender = participantMap[participantId].name;
+                                msg.avatar = participantMap[participantId].avatar;
+                                
+                                console.log(`根据消息索引分配发送者: ${msg.sender}`);
+                            }
+                        }
+                    });
+                }
+            }
+            
+            // 创建新的模态框
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.style.position = 'fixed';
+            modal.style.top = '0';
+            modal.style.left = '0';
+            modal.style.width = '100%';
+            modal.style.height = '100%';
+            modal.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+            modal.style.display = 'flex';
+            modal.style.justifyContent = 'center';
+            modal.style.alignItems = 'center';
+            modal.style.zIndex = '1000';
+            
+            // 设置模态框内容 - 修改头像处理逻辑，直接使用首字母头像
+            modal.innerHTML = `
+                <div style="background-color: white; border-radius: 8px; width: 80%; max-width: 800px; max-height: 80vh; overflow-y: auto; padding: 20px; position: relative;">
+                    <span class="close-modal" style="position: absolute; right: 10px; top: 10px; font-size: 24px; cursor: pointer;">&times;</span>
+                    <h2>${talk.title || '无标题对话'}</h2>
+                    <p>日期: ${talk.date}</p>
+                    <p>参与者: ${talk.participantNames ? talk.participantNames.join(', ') : talk.participants ? talk.participants.join(', ') : ''}</p>
+                    <div style="margin-top: 20px;">
+                        ${talk.messages ? talk.messages.map(msg => {
+                            // 直接决定是显示头像还是首字母
+                            const avatarHtml = msg.avatar ? 
+                                `<img src="${msg.avatar}" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 8px;" onerror="this.outerHTML='<div style=\\'width: 30px; height: 30px; border-radius: 50%; background-color: #6c5ce7; color: white; display: flex; justify-content: center; align-items: center; margin-right: 8px; font-weight: bold;\\'>${msg.sender ? msg.sender.charAt(0).toUpperCase() : '?'}</div>'">` : 
+                                `<div style="width: 30px; height: 30px; border-radius: 50%; background-color: #6c5ce7; color: white; display: flex; justify-content: center; align-items: center; margin-right: 8px; font-weight: bold;">${msg.sender ? msg.sender.charAt(0).toUpperCase() : '?'}</div>`;
+                            
+                            return `
+                                <div style="margin-bottom: 15px; padding: 10px; background-color: #f5f5f5; border-radius: 8px;">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                        <div style="display: flex; align-items: center;">
+                                            ${avatarHtml}
+                                            <strong>${msg.sender || '未知'}</strong>
+                                        </div>
+                                        <span>${msg.time || ''}</span>
+                                    </div>
+                                    <div>${msg.content || ''}</div>
+                                </div>
+                            `;
+                        }).join('') : '暂无消息'}
+                    </div>
+                </div>
+            `;
+            
+            // 将模态框添加到页面
+            document.body.appendChild(modal);
+            
+            // 添加关闭按钮事件
+            const closeButton = modal.querySelector('.close-modal');
+            if (closeButton) {
+                closeButton.addEventListener('click', () => {
+                    modal.remove();
+                });
+            }
+            
+            // 点击模态框外部关闭
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+        }
+        
+        // 获取所有 Contact Agent 按钮
+        const contactButtons = document.querySelectorAll('.agent-contact');
+        
+        // 为每个按钮添加点击事件处理
+        contactButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // 获取对应的 agent 信息
+                const agentCard = button.closest('.agent-card');
+                const agentName = agentCard.querySelector('h4').textContent;
+                const agentTitle = agentCard.querySelector('.agent-title').textContent;
+                const agentAvatar = agentCard.querySelector('.agent-avatar img').src;
+                
+                // 显示聊天窗口
+                const chatModal = document.getElementById('chat-modal');
+                if (chatModal) {
+                    document.getElementById('chat-agent-name').textContent = agentName;
+                    document.getElementById('chat-agent-title').textContent = agentTitle;
+                    document.getElementById('chat-agent-avatar').src = agentAvatar;
+                    chatModal.style.display = 'block';
+                }
+            });
+        });
+        
+        // 添加关闭聊天窗口的功能
+        const chatCloseButton = document.querySelector('#chat-modal .close-modal');
+        if (chatCloseButton) {
+            chatCloseButton.addEventListener('click', () => {
+                const chatModal = document.getElementById('chat-modal');
+                if (chatModal) {
+                    chatModal.style.display = 'none';
+                }
+            });
+        }
+        
+        // 点击模态框外部关闭
+        window.addEventListener('click', (e) => {
+            const chatModal = document.getElementById('chat-modal');
+            if (e.target === chatModal) {
+                chatModal.style.display = 'none';
+            }
+        });
+        
+        // 修复新闻项点击事件
+        const newsItems = document.querySelectorAll('.news-item');
+        newsItems.forEach((item, index) => {
+            const readMoreBtn = item.querySelector('.read-more');
+            if (readMoreBtn) {
+                readMoreBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // 获取新闻数据
+                    const title = item.querySelector('h4').textContent;
+                    const content = item.querySelector('p').textContent;
+                    const dateDay = item.querySelector('.day').textContent;
+                    const dateMonth = item.querySelector('.month').textContent;
+                    const timeAgo = item.querySelector('.news-meta span').textContent;
+                    
+                    // 设置模态框内容
+                    const modal = document.getElementById('news-detail-modal');
+                    document.getElementById('modal-news-title').textContent = title;
+                    document.getElementById('modal-news-content').textContent = content;
+                    document.getElementById('modal-news-day').textContent = dateDay;
+                    document.getElementById('modal-news-month').textContent = dateMonth;
+                    document.getElementById('modal-news-time').textContent = timeAgo;
+                    
+                    // 显示模态框
+                    modal.style.display = 'block';
+                });
+            }
+        });
+        
+        // 为新闻模态框添加关闭功能
+        const newsCloseButton = document.querySelector('#news-detail-modal .close-modal');
+        const newsCloseBtn = document.querySelector('#news-detail-modal .close-btn');
+        
+        if (newsCloseButton) {
+            newsCloseButton.addEventListener('click', () => {
+                document.getElementById('news-detail-modal').style.display = 'none';
+            });
+        }
+        
+        if (newsCloseBtn) {
+            newsCloseBtn.addEventListener('click', () => {
+                document.getElementById('news-detail-modal').style.display = 'none';
+            });
+        }
+    });
+    </script>
+</body>
+</html> 

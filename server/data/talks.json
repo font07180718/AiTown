@@ -1,0 +1,42 @@
+[
+  {
+    "title": "加密货币未来",
+    "date": "2025-03-24",
+    "tags": [
+      "加密货币"
+    ],
+    "participants": [
+      5,
+      6,
+      7
+    ],
+    "messages": [
+      {
+        "senderId": 6,
+        "content": "币安的创新正是为未来加密货币赋能",
+        "time": "11:23 AM"
+      },
+      {
+        "senderId": 5,
+        "content": "以太坊生态完善才是关键，CZ 你说呢？",
+        "time": "11:24 AM"
+      },
+      {
+        "senderId": 6,
+        "content": "携手共进，生态、应用都得跟上",
+        "time": "11:24 AM"
+      },
+      {
+        "senderId": 7,
+        "content": "我上台就推广，让大家都受益。",
+        "time": "11:24 AM"
+      },
+      {
+        "senderId": 5,
+        "content": "先合规发展，别光喊口号，Donald Trumpton",
+        "time": "11:24 AM"
+      }
+    ],
+    "id": 1
+  }
+]

@@ -1,0 +1,1410 @@
+:root {
+    --primary-color: #6c5ce7;
+    --primary-light: #a29bfe;
+    --secondary-color: #00cec9;
+    --text-color: #2d3436;
+    --text-light: #636e72;
+    --bg-color: #f9f9f9;
+    --card-bg: #ffffff;
+    --sidebar-bg: #2d3436;
+    --sidebar-text: #f9f9f9;
+    --success-color: #00b894;
+    --warning-color: #fdcb6e;
+    --danger-color: #d63031;
+    --border-radius: 12px;
+    --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* 侧边栏样式 */
+.sidebar {
+    width: 280px;
+    background-color: var(--sidebar-bg);
+    color: var(--sidebar-text);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: fixed;
+    height: 100vh;
+    left: 0;
+    top: 0;
+}
+
+.logo h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(45deg, var(--primary-light), var(--secondary-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.logo p {
+    font-size: 1rem;
+    opacity: 0.8;
+    margin-bottom: 2rem;
+}
+
+.sidebar-nav {
+    margin-top: 2rem;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.nav-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-item.active {
+    background-color: var(--primary-color);
+}
+
+.nav-item i {
+    margin-right: 1rem;
+    font-size: 1.2rem;
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+.social-icons {
+    display: flex;
+    margin-top: 1rem;
+}
+
+.social-icons a {
+    color: var(--sidebar-text);
+    margin-right: 1rem;
+    font-size: 1.2rem;
+    transition: var(--transition);
+}
+
+.social-icons a:hover {
+    color: var(--primary-light);
+}
+
+/* 主要内容区域样式 */
+.main-content {
+    flex: 1;
+    margin-left: 280px;
+    padding: 2rem;
+}
+
+.content-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.content-header h2 {
+    text-align: center;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+}
+
+.connect-wallet {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-right: 1rem;
+}
+
+.connect-wallet:hover {
+    background-color: var(--primary-light);
+}
+
+.theme-toggle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--card-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--card-shadow);
+}
+
+.content-section {
+    display: none;
+}
+
+.content-section.active {
+    display: block;
+}
+
+.section-header {
+    margin-bottom: 2rem;
+}
+
+.section-header h3 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+}
+
+.section-header p {
+    color: var(--text-light);
+}
+
+/* Agents 部分样式 */
+.agents-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+.agent-card {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+}
+
+.agent-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.agent-avatar {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.agent-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.agent-info {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.agent-info h4 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.agent-title {
+    color: var(--primary-color);
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.agent-bio {
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    flex-grow: 1;
+}
+
+.agent-contact {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 0;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    width: 100%;
+    text-align: center;
+    margin-top: auto;
+}
+
+.agent-contact:hover {
+    background-color: var(--primary-light);
+}
+
+/* News 部分样式 */
+.news-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.news-card {
+    display: flex;
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.news-date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1.5rem 1rem;
+    min-width: 100px;
+    text-align: center;
+}
+
+.news-date .month {
+    font-size: 1rem;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.news-date .day {
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.news-content {
+    padding: 1.5rem;
+    flex: 1;
+}
+
+.news-content h3 {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    font-size: 1.3rem;
+}
+
+.news-content p {
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+    line-height: 1.5;
+}
+
+.read-more-btn {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.read-more-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* 响应式设计 */
+@media (max-width: 1024px) {
+    .agents-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 80px;
+        padding: 1.5rem 0.5rem;
+    }
+    
+    .logo h1, .logo p, .nav-item span, .sidebar-footer p {
+        display: none;
+    }
+    
+    .nav-item {
+        justify-content: center;
+        padding: 1rem 0;
+    }
+    
+    .nav-item i {
+        margin-right: 0;
+        font-size: 1.5rem;
+    }
+    
+    .social-icons {
+        justify-content: center;
+    }
+    
+    .main-content {
+        margin-left: 80px;
+    }
+    
+    .agents-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-content {
+        padding: 1rem;
+    }
+    
+    .content-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .header-actions {
+        margin-top: 1rem;
+        width: 100%;
+    }
+    
+    .connect-wallet {
+        flex: 1;
+    }
+    
+    .news-item {
+        flex-direction: column;
+    }
+    
+    .news-date {
+        flex-direction: row;
+        padding: 0.75rem;
+        min-width: auto;
+        width: 100%;
+    }
+    
+    .news-date .day {
+        margin-right: 0.5rem;
+    }
+}
+
+/* Talks Section Styles */
+.talks-container {
+    margin-top: 2rem;
+}
+
+.talk-item {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    margin-bottom: 2rem;
+    overflow: hidden;
+}
+
+.talk-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.talk-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin: 0;
+}
+
+.talk-date {
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.talk-content {
+    padding: 1.5rem;
+}
+
+.talk-message {
+    display: flex;
+    margin-bottom: 1.5rem;
+}
+
+.talk-message:last-child {
+    margin-bottom: 0;
+}
+
+.message-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 1rem;
+    flex-shrink: 0;
+}
+
+.message-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 统一消息样式 */
+.message-content {
+    background-color: var(--primary-light);
+    color: white;
+    padding: 1rem;
+    border-radius: 12px;
+    position: relative;
+    flex-grow: 1;
+}
+
+.message-content::before {
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: -8px;
+    width: 16px;
+    height: 16px;
+    background-color: var(--primary-light);
+    transform: rotate(45deg);
+}
+
+.message-sender {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: white;
+}
+
+.message-text {
+    margin: 0;
+    line-height: 1.5;
+}
+
+.message-time {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 0.5rem;
+    text-align: right;
+}
+
+/* 移除不同发送者的样式差异 */
+.message-content.primary-sender,
+.message-content.secondary-sender {
+    background-color: var(--primary-light);
+    color: white;
+}
+
+.message-content.primary-sender::before,
+.message-content.secondary-sender::before {
+    background-color: var(--primary-light);
+}
+
+.message-content.primary-sender .message-sender,
+.message-content.secondary-sender .message-sender {
+    color: white;
+}
+
+.talk-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.talk-tags {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.talk-tag {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+.view-full-talk {
+    color: var(--primary-color);
+    font-weight: 500;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.view-full-talk i {
+    margin-left: 0.5rem;
+}
+
+/* 对话布局 */
+.talk-layout {
+    display: flex;
+    margin-top: 1rem;
+}
+
+.talk-participants {
+    width: 100px;
+    margin-right: 1.5rem;
+    flex-shrink: 0;
+}
+
+.participant {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.participant-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 0.5rem;
+    border: 2px solid var(--bg-color);
+    box-shadow: var(--card-shadow);
+}
+
+.participant-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.participant-status {
+    position: absolute;
+    bottom: 3px;
+    right: 3px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--text-light);
+    border: 2px solid var(--card-bg);
+}
+
+.participant-status.online {
+    background-color: var(--success-color);
+}
+
+.participant-name {
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-align: center;
+    color: var(--text-color);
+}
+
+.talk-content-wrapper {
+    flex-grow: 1;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .talk-layout {
+        flex-direction: column;
+    }
+    
+    .talk-participants {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 1rem;
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+    }
+    
+    .participant {
+        margin-bottom: 0;
+    }
+    
+    .participant-avatar {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+/* 对话过滤和搜索 */
+.talks-filters {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.search-container {
+    display: flex;
+    flex: 1;
+    max-width: 400px;
+}
+
+.search-container input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
+    font-size: 0.9rem;
+}
+
+.search-container button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0 1rem;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    cursor: pointer;
+}
+
+.filter-container select {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background-color: var(--card-bg);
+    font-size: 0.9rem;
+    min-width: 150px;
+}
+
+/* 对话摘要 */
+.talk-summary {
+    padding: 1rem 1.5rem;
+    background-color: var(--bg-color);
+    border-radius: var(--border-radius);
+    margin: 1rem 1.5rem;
+}
+
+.summary-participants,
+.summary-message-count,
+.summary-last-message {
+    margin-bottom: 0.5rem;
+}
+
+.summary-last-message {
+    margin-bottom: 0;
+}
+
+.label {
+    font-weight: 600;
+    color: var(--text-light);
+    margin-right: 0.5rem;
+}
+
+.sender {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* 分页控件 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    gap: 1rem;
+}
+
+.pagination-btn {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.pagination-btn:hover:not(:disabled) {
+    background-color: var(--primary-light);
+    color: white;
+}
+
+.pagination-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.page-info {
+    font-weight: 500;
+}
+
+/* 展开/折叠按钮 */
+.toggle-talk-btn {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.toggle-talk-btn i {
+    margin-left: 0.5rem;
+}
+
+/* 聊天模态框样式 */
+.chat-modal-content {
+    max-width: 600px;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.agent-avatar-small {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 1rem;
+}
+
+.agent-avatar-small img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.chat-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.chat-message {
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.chat-message.user {
+    justify-content: flex-end;
+}
+
+.message-bubble {
+    max-width: 70%;
+    padding: 0.75rem 1rem;
+    border-radius: 1rem;
+    position: relative;
+}
+
+.user .message-bubble {
+    background-color: var(--primary-color);
+    color: white;
+    border-bottom-right-radius: 0;
+}
+
+.agent .message-bubble {
+    background-color: #f0f0f0;
+    color: var(--text-color);
+    border-bottom-left-radius: 0;
+}
+
+.chat-input-container {
+    display: flex;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1rem;
+}
+
+#chat-input {
+    flex-grow: 1;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 0.75rem;
+    resize: none;
+    font-family: inherit;
+}
+
+#send-message-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+#send-message-btn:hover {
+    background-color: var(--primary-light);
+}
+
+.typing-indicator {
+    display: flex;
+    padding: 0.5rem 1rem;
+    background-color: #f0f0f0;
+    border-radius: 1rem;
+    width: fit-content;
+    margin-bottom: 1rem;
+}
+
+.typing-indicator span {
+    height: 8px;
+    width: 8px;
+    background-color: var(--text-light);
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 2px;
+    animation: typing 1.4s infinite both;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typing {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* 模态框样式 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: auto;
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    margin: 5% auto;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    width: 80%;
+    max-width: 800px;
+    box-shadow: var(--card-shadow);
+    position: relative;
+    animation: modalFadeIn 0.3s;
+}
+
+@keyframes modalFadeIn {
+    from {opacity: 0; transform: translateY(-20px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+.close-modal {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-light);
+    cursor: pointer;
+}
+
+.close-modal:hover {
+    color: var(--primary-color);
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+}
+
+.modal-date {
+    margin-right: 1.5rem;
+}
+
+.modal-header h3 {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.modal-body {
+    margin-bottom: 2rem;
+}
+
+.modal-body p {
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+.modal-footer {
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.close-btn {
+    padding: 0.75rem 1.5rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.close-btn:hover {
+    background-color: var(--primary-light);
+}
+
+.share-buttons {
+    display: none;
+}
+
+/* 清除历史按钮样式 */
+.clear-history-btn {
+    margin-left: auto;
+    background-color: transparent;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    transition: var(--transition);
+}
+
+.clear-history-btn i {
+    margin-right: 0.5rem;
+}
+
+.clear-history-btn:hover {
+    color: var(--danger-color);
+}
+
+/* 对话详情模态框样式 */
+.talk-modal-content {
+    max-width: 800px;
+}
+
+.talk-info {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.talk-info p {
+    margin: 0;
+}
+
+.talk-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-height: 60vh;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+.talk-message {
+    display: flex;
+    margin-bottom: 0.5rem;
+}
+
+.message-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 1rem;
+    flex-shrink: 0;
+}
+
+.message-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.message-content {
+    background-color: #f0f0f0;
+    padding: 1rem 1.25rem;
+    border-radius: 1rem;
+    border-bottom-left-radius: 0;
+    max-width: 80%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.message-sender {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+}
+
+.message-text {
+    margin: 0;
+    line-height: 1.5;
+    color: #000000;
+    font-weight: 400;
+}
+
+.message-time {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin-top: 0.5rem;
+    text-align: right;
+}
+
+.talk-card {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--card-shadow);
+}
+
+.talk-card .talk-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.talk-card .talk-participants {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 0.75rem;
+    color: var(--text-light);
+    font-size: 0.85rem;
+    background-color: #f5f5f5;
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--border-radius);
+    width: fit-content;
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.talk-card .talk-participants i {
+    color: var(--primary-color);
+    margin-right: 0.3rem;
+}
+
+.talk-card .talk-preview {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border-radius: var(--border-radius);
+}
+
+.talk-card .talk-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.talk-card .tag {
+    background-color: var(--primary-light);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.8rem;
+}
+
+.view-talk-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.view-talk-btn:hover {
+    background-color: var(--primary-light);
+}
+
+/* 对话页面样式优化 - 简化版 */
+.talks-filter {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+    background-color: var(--card-bg);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+}
+
+.search-container {
+    display: flex;
+    flex: 1;
+    max-width: 400px;
+}
+
+#talks-search {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
+    font-size: 0.9rem;
+    background-color: #f9f9f9;
+}
+
+#search-talks-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0 1rem;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    cursor: pointer;
+}
+
+.filter-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.filter-tag {
+    background-color: #f0f0f0;
+    color: var(--text-color);
+    padding: 0.4rem 0.8rem;
+    border-radius: 2rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.filter-tag:hover {
+    background-color: var(--primary-light);
+    color: white;
+}
+
+.filter-tag.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.talks-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.25rem;
+}
+
+.talk-card {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 1.25rem;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.talk-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.talk-card .talk-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+}
+
+.talk-card .talk-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #000000;
+    font-weight: 600;
+    flex: 1;
+    margin-right: 0.75rem;
+}
+
+.talk-card .talk-date {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    white-space: nowrap;
+}
+
+.talk-card .talk-participants {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 0.75rem;
+    color: var(--text-light);
+    font-size: 0.85rem;
+    background-color: #f5f5f5;
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--border-radius);
+    width: fit-content;
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.talk-card .talk-participants i {
+    color: var(--primary-color);
+    margin-right: 0.3rem;
+}
+
+.talk-card .talk-preview {
+    margin-bottom: 0.75rem;
+    padding: 0.75rem;
+    background-color: #f9f9f9;
+    border-radius: var(--border-radius);
+    flex-grow: 1;
+}
+
+.talk-card .talk-preview p {
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.9rem;
+    color: #000000;
+}
+
+.talk-card .talk-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
+}
+
+.talk-card .tag {
+    background-color: var(--primary-light);
+    color: white;
+    padding: 0.2rem 0.6rem;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+}
+
+.view-talk-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.6rem 0;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    width: 100%;
+    font-weight: 500;
+    margin-top: auto;
+    font-size: 0.9rem;
+}
+
+.view-talk-btn:hover {
+    background-color: var(--primary-light);
+}
+
+/* 新闻详情模态框样式 */
+.news-modal-content {
+    max-width: 800px;
+}
+
+.news-modal-content .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.news-modal-content .modal-header h3 {
+    margin: 0;
+    flex: 1;
+}
+
+.news-content-full {
+    line-height: 1.6;
+    color: var(--text-color);
+}
+
+.modal-header .date-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--border-radius);
+    min-width: 60px;
+    text-align: center;
+}
+
+.modal-header .date-badge .month {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+}
+
+.modal-header .date-badge .day {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+} 

@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Valley 后台管理</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6c5ce7;
+            --primary-light: #a29bfe;
+            --secondary-color: #00cec9;
+            --text-color: #2d3436;
+            --text-light: #636e72;
+            --bg-color: #f9f9f9;
+            --card-bg: #ffffff;
+            --sidebar-bg: #2d3436;
+            --sidebar-text: #f9f9f9;
+            --success-color: #00b894;
+            --warning-color: #fdcb6e;
+            --danger-color: #d63031;
+            --border-radius: 12px;
+            --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --border-color: rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+        
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* 侧边栏样式 */
+        .sidebar {
+            width: 280px;
+            background-color: var(--sidebar-bg);
+            color: var(--sidebar-text);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, var(--primary-light), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .logo p {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+        
+        .admin-nav {
+            margin-top: 2rem;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .nav-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-item.active {
+            background-color: var(--primary-color);
+        }
+        
+        .nav-item i {
+            margin-right: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .sidebar-footer {
+            margin-top: auto;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* 主要内容区域 */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 2rem;
+        }
+        
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .content-header h2 {
+            font-size: 1.8rem;
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn i {
+            margin-right: 0.5rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-light);
+        }
+        
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            opacity: 0.9;
+        }
+        
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            opacity: 0.9;
+        }
+        
+        /* 内容部分 */
+        .content-section {
+            display: none;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        .section-header {
+            margin-bottom: 2rem;
+        }
+        
+        .section-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .section-header p {
+            color: var(--text-light);
+        }
+        
+        /* 表格样式 */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .data-table th, .data-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .data-table th {
+            background-color: #f5f5f5;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .data-table tr:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .data-table img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .status-badge.online {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .status-badge.offline {
+            background-color: #9e9e9e;
+            color: white;
+        }
+        
+        /* 按钮样式 */
+        .btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-sm {
+            padding: 4px 8px;
+            font-size: 12px;
+        }
+        
+        .btn-primary {
+            background-color: #6c5ce7;
+            color: white;
+        }
+        
+        .btn-danger {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #5b4bc4;
+        }
+        
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+        
+        /* 操作列样式 */
+        .data-table td:last-child {
+            white-space: nowrap;
+        }
+        
+        .data-table td:last-child .btn {
+            margin-right: 5px;
+        }
+        
+        /* 表单样式 */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(108, 92, 231, 0.2);
+        }
+        
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-col {
+            flex: 1;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        /* 模态框样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            overflow: auto;
+        }
+        
+        .modal-content {
+            background-color: var(--card-bg);
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            width: 80%;
+            max-width: 800px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            animation: modalFadeIn 0.3s;
+        }
+        
+        @keyframes modalFadeIn {
+            from {opacity: 0; transform: translateY(-20px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--text-light);
+            cursor: pointer;
+        }
+        
+        .close-modal:hover {
+            color: var(--primary-color);
+        }
+        
+        .modal-header {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .modal-header h3 {
+            font-size: 1.5rem;
+        }
+        
+        /* 消息容器样式 */
+        .messages-container {
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .message-item {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background-color: rgba(0, 0, 0, 0.03);
+            border-radius: var(--border-radius);
+            position: relative;
+        }
+        
+        .message-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .message-sender {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .message-time {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        .message-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        /* 预览图片样式 */
+        #avatar-preview,
+        #logo-preview {
+            margin-top: 1rem;
+            max-width: 100%;
+        }
+        
+        #avatar-preview img,
+        #logo-preview img {
+            max-width: 150px;
+            max-height: 150px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+        }
+        
+        /* 加载状态 */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+        }
+        
+        .loading i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 侧边栏 -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>Crypto Valley</h1>
+                <p>后台管理系统</p>
+            </div>
+            
+            <nav class="admin-nav">
+                <div class="nav-item active" data-section="agents">
+                    <i class="fas fa-user-secret"></i>
+                    <span>代理人管理</span>
+                </div>
+                <div class="nav-item" data-section="talks">
+                    <i class="fas fa-comments"></i>
+                    <span>对话管理</span>
+                </div>
+                <div class="nav-item" data-section="news">
+                    <i class="far fa-newspaper"></i>
+                    <span>新闻管理</span>
+                </div>
+                <div class="nav-item" data-section="settings">
+                    <i class="fas fa-cog"></i>
+                    <span>系统设置</span>
+                </div>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <p>&copy; 2023 Crypto Valley</p>
+            </div>
+        </aside>
+        
+        <!-- 主要内容区域 -->
+        <main class="main-content">
+            <!-- 代理人管理部分 -->
+            <div id="agents-section" class="content-section active">
+                <div class="section-header">
+                    <h2>代理人管理</h2>
+                    <button id="add-agent-btn" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> 添加代理人
+                    </button>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>头像</th>
+                            <th>名称</th>
+                            <th>职位</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="agents-list">
+                        <!-- 代理人列表将在这里渲染 -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- 对话管理部分 -->
+            <section id="talks-section" class="content-section">
+                <div class="content-header">
+                    <h2>对话管理</h2>
+                    <div class="header-actions">
+                        <button class="btn btn-primary" id="add-talk-btn">
+                            <i class="fas fa-plus"></i> 添加对话
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="section-content">
+                    <table class="data-table" id="talks-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>标题</th>
+                                <th>日期</th>
+                                <th>参与者</th>
+                                <th>标签</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- 对话数据将通过JavaScript动态添加 -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            
+            <!-- 新闻管理部分 -->
+            <section id="news-section" class="content-section">
+                <div class="content-header">
+                    <h2>新闻管理</h2>
+                    <div class="header-actions">
+                        <button class="btn btn-primary" id="add-news-btn">
+                            <i class="fas fa-plus"></i> 添加新闻
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="section-content">
+                    <table class="data-table" id="news-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>日期</th>
+                                <th>标题</th>
+                                <th>时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- 新闻数据将通过JavaScript动态添加 -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            
+            <!-- 系统设置部分 -->
+            <section id="settings-section" class="content-section">
+                <div class="content-header">
+                    <h2>系统设置</h2>
+                </div>
+                
+                <div class="section-content">
+                    <form id="settings-form">
+                        <div class="form-group">
+                            <label for="site-title">网站标题</label>
+                            <input type="text" id="site-title" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="site-description">网站描述</label>
+                            <textarea id="site-description" class="form-control"></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="primary-color">主题色</label>
+                                    <input type="color" id="primary-color" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="site-logo">网站Logo</label>
+                                    <input type="file" id="site-logo" class="form-control" accept="image/*">
+                                    <div id="logo-preview"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">保存设置</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- 代理人表单模态框 -->
+    <div id="agent-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h3 id="agent-modal-title">添加代理人</h3>
+            </div>
+            <form id="agent-form">
+                <input type="hidden" id="agent-id">
+                <div class="form-group">
+                    <label for="agent-name">名称</label>
+                    <input type="text" id="agent-name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="agent-title">职位</label>
+                    <input type="text" id="agent-title" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="agent-bio">简介</label>
+                    <textarea id="agent-bio" class="form-control" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="agent-avatar">头像URL</label>
+                    <input type="text" id="agent-avatar" class="form-control">
+                    <div id="avatar-preview"></div>
+                </div>
+                <div class="form-group">
+                    <label for="agent-prompt">AI提示词（仅后台可见）</label>
+                    <textarea id="agent-prompt" class="form-control" rows="6" placeholder="输入该代理人的AI提示词，包括性格、专业知识、回答风格等..."></textarea>
+                    <small class="form-text text-muted">这个提示词将用于指导AI如何扮演该代理人角色，包括欢迎语、回答风格和专业知识范围。</small>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-danger" id="cancel-agent-btn">取消</button>
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- 对话表单模态框 -->
+    <div id="talk-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h3 id="talk-modal-title">添加对话</h3>
+            </div>
+            <form id="talk-form">
+                <input type="hidden" id="talk-id">
+                <div class="form-row">
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="talk-title">标题</label>
+                            <input type="text" id="talk-title" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="talk-date">日期</label>
+                            <input type="date" id="talk-date" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="talk-tags">标签（用逗号分隔）</label>
+                    <input type="text" id="talk-tags" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="talk-participants">参与者</label>
+                    <select id="talk-participants" class="form-control" multiple>
+                        <!-- 代理人选项将通过JavaScript动态添加 -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>消息</label>
+                    <div class="messages-container" id="messages-container">
+                        <!-- 消息将通过JavaScript动态添加 -->
+                    </div>
+                    <button type="button" class="btn btn-primary" id="add-message-btn" style="margin-top: 1rem;">
+                        <i class="fas fa-plus"></i> 添加消息
+                    </button>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-danger" id="cancel-talk-btn">取消</button>
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- 消息表单模态框 -->
+    <div id="message-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h3>添加消息</h3>
+            </div>
+            <form id="message-form">
+                <input type="hidden" id="message-index">
+                <div class="form-group">
+                    <label for="message-sender">发送者</label>
+                    <select id="message-sender" class="form-control" required>
+                        <!-- 代理人选项将通过JavaScript动态添加 -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message-content">内容</label>
+                    <textarea id="message-content" class="form-control" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="message-time">时间</label>
+                    <input type="text" id="message-time" class="form-control" placeholder="例如：10:30 AM">
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-danger" id="cancel-message-btn">取消</button>
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- 新闻模态框 -->
+    <div id="news-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3 id="news-modal-title">添加新闻</h3>
+            <form id="news-form">
+                <input type="hidden" id="news-id">
+                <div class="form-group">
+                    <label for="news-title">标题</label>
+                    <input type="text" id="news-title" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="news-content">内容</label>
+                    <textarea id="news-content" class="form-control" rows="5"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="news-date">日期</label>
+                    <input type="date" id="news-date" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="news-image">图片URL</label>
+                    <input type="text" id="news-image" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="news-source">来源</label>
+                    <input type="text" id="news-source" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="news-url">链接</label>
+                    <input type="text" id="news-url" class="form-control">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">保存</button>
+                    <button type="button" id="cancel-news-btn" class="btn btn-secondary">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="admin.js"></script>
+</body>
+</html> 

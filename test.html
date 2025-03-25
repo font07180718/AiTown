@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API 测试</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        pre { background: #f5f5f5; padding: 10px; border-radius: 5px; }
+        button { margin: 10px 0; padding: 5px 10px; }
+    </style>
+</head>
+<body>
+    <h1>API 测试</h1>
+    
+    <button id="test-agents">测试代理人 API</button>
+    <button id="test-talks">测试对话 API</button>
+    <button id="test-news">测试新闻 API</button>
+    <button id="test-settings">测试设置 API</button>
+    
+    <h2>结果：</h2>
+    <pre id="result">点击按钮测试 API</pre>
+    
+    <script>
+        document.getElementById('test-agents').addEventListener('click', function() {
+            fetchAPI('/api/agents');
+        });
+        
+        document.getElementById('test-talks').addEventListener('click', function() {
+            fetchAPI('/api/talks');
+        });
+        
+        document.getElementById('test-news').addEventListener('click', function() {
+            fetchAPI('/api/news');
+        });
+        
+        document.getElementById('test-settings').addEventListener('click', function() {
+            fetchAPI('/api/settings');
+        });
+        
+        function fetchAPI(url) {
+            const resultElement = document.getElementById('result');
+            resultElement.textContent = '加载中...';
+            
+            fetch(url)
+                .then(response => {
+                    console.log('API响应状态:', response.status);
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('获取到的数据:', data);
+                    resultElement.textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    console.error('API请求失败:', error);
+                    resultElement.textContent = '错误: ' + error.message;
+                });
+        }
+    </script>
+</body>
+</html> 
